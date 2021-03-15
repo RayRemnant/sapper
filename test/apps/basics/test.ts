@@ -136,22 +136,6 @@ describe('basics', function() {
 		assert.equal(requests[1], `${r.base}/b.json`);
 	});
 
-	// TODO equivalent test for a webpack app
-	it('sets Content-Type, Link...modulepreload', async () => {
-		const { headers } = await get(r.base);
-
-		assert.equal(
-			headers['content-type'],
-			'text/html'
-		);
-
-		// TODO preload more than just the entry point
-		const regex = /<\/client\/client\.\w+\.js>;rel="modulepreload"/;
-		const link = <string>headers['link'];
-
-		assert.ok(regex.test(link), link);
-	});
-
 	it('calls a delete handler', async () => {
 		await r.load('/delete-test');
 		await r.sapper.start();

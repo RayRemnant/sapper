@@ -95,18 +95,6 @@ export function get_page_handler(
 			});
 		}
 
-		const link = preload_files
-			.filter((v, i, a) => a.indexOf(v) === i)        // remove any duplicates
-			.filter(file => file && !file.match(/\.map$/))  // exclude source maps
-			.map((file) => {
-				const as = /\.css$/.test(file) ? 'style' : 'script';
-				const rel = es6_preload && as === 'script' ? 'modulepreload' : 'preload';
-				return `<${req.baseUrl}/client/${file}>;rel="${rel}";as="${as}"`;
-			})
-			.join(', ');
-
-		res.setHeader('Link', link);
-
 		let session;
 		try {
 			session = await session_getter(req, res);
